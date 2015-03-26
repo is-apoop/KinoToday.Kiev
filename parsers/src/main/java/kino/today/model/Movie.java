@@ -6,6 +6,7 @@ import java.util.List;
  * Created by hlib on 25.03.15.
  */
 public class Movie {
+    private String title;
     private String description;
     private int duration;
     private String genre;
@@ -15,6 +16,14 @@ public class Movie {
     private List<Session> sessions;
 
     public Movie() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<Session> getSessions() {

@@ -10,6 +10,7 @@ public class Session {
     private Movie movie;
     private int price;
     private LocalDateTime timeStart;
+    private String ticketsLink;
 
     public Session() {
     }
@@ -44,5 +45,13 @@ public class Session {
 
     public void setTimeStart(LocalDateTime timeStart) {
         this.timeStart = timeStart;
+    }
+
+    public String getTicketsLink() {
+        return ticketsLink;
+    }
+
+    public void setTicketsLink(String ticketsLink) {
+        this.ticketsLink = ticketsLink;
     }
 }
