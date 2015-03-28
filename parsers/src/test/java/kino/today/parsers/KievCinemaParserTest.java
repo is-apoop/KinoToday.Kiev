@@ -1,5 +1,6 @@
 package kino.today.parsers;
 
+import kino.today.model.Cinema;
 import org.junit.Test;
 
 public class KievCinemaParserTest {
@@ -7,7 +8,7 @@ public class KievCinemaParserTest {
     @Test
     public void testParse() throws Exception {
         KievCinemaParser parser = new KievCinemaParser();
-        parser.parse();
-        System.out.println(parser.movieNameToSessions);
+        Cinema cinema = parser.parse();
+        System.out.println(cinema);
     }
 }
