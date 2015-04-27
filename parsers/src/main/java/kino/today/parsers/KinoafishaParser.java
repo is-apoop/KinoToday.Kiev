@@ -37,11 +37,11 @@ public class KinoafishaParser {
 
     private Map<String, String> cinemaNaneToKinoafishaIdMap = new HashMap<>();
 
-    public void updateCinemaIds() throws CinemaUpdateFailedException {
+    public void updateCinemaIds() { //throws CinemaUpdateFailedException {
         String json = sendCinemaIdsRequest();
     }
 
-    private String sendCinemaIdsRequest() throws CinemaUpdateFailedException {
+    private String sendCinemaIdsRequest() { //throws CinemaUpdateFailedException {
         CloseableHttpResponse response2 = null;
         CloseableHttpClient httpclient = HttpClients.createDefault();
         String theString = null;
@@ -62,7 +62,7 @@ public class KinoafishaParser {
                 response2.close();
             }
         } catch (IOException e) {
-            throw new CinemaUpdateFailedException(e);
+            //throw new CinemaUpdateFailedException(e);
         }
         return theString;
     }
