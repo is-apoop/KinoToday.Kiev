@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KinoToday.iml" filepath="$PROJECT_DIR$/KinoToday.iml" />
-      <module fileurl="file://$PROJECT_DIR$/KinoTodayApp/KinoTodayApp.iml" filepath="$PROJECT_DIR$/KinoTodayApp/KinoTodayApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KinoToday.Kiev.iml" filepath="$PROJECT_DIR$/KinoToday.Kiev.iml" />
       <module fileurl="file://$PROJECT_DIR$/KinoTodayApp/app/app.iml" filepath="$PROJECT_DIR$/KinoTodayApp/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kinotoday/kinotoday.iml" filepath="$PROJECT_DIR$/kinotoday/kinotoday.iml" />
       <module fileurl="file://$PROJECT_DIR$/parsers/parsers.iml" filepath="$PROJECT_DIR$/parsers/parsers.iml" />
     </modules>
   </component>

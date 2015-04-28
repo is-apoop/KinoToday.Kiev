@@ -1,14 +1,13 @@
 package com.kinotoday.kiev;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.widget.Toast;
 import com.backendless.Backendless;
@@ -17,12 +16,6 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
-import com.dexafree.materialList.cards.BasicImageButtonsCard;
-import com.dexafree.materialList.cards.OnButtonPressListener;
-import com.dexafree.materialList.controller.RecyclerItemClickListener;
-import com.dexafree.materialList.model.Card;
-import com.dexafree.materialList.model.CardItemView;
-import com.dexafree.materialList.view.MaterialListView;
 import com.kinotoday.kiev.model.Session;
 
 import java.util.Locale;
@@ -136,6 +129,10 @@ public class MainActivity extends ActionBarActivity
    */
   public static class PlaceholderFragment extends Fragment
   {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -164,7 +161,15 @@ public class MainActivity extends ActionBarActivity
     {
       final View rootView = inflater.inflate( R.layout.fragment_main, container, false );
 
-      final MaterialListView mListView = (MaterialListView) rootView.findViewById( R.id.material_listview );
+      mRecyclerView = (RecyclerView) rootView.findViewById( R.id.sessions_view );
+
+      // use this setting to improve performance if you know that changes
+      // in content do not change the layout size of the RecyclerView
+      mRecyclerView.setHasFixedSize( true );
+
+      // use a linear layout manager
+      mLayoutManager = new LinearLayoutManager( getActivity() );
+      mRecyclerView.setLayoutManager( mLayoutManager );
 
       BackendlessDataQuery query = new BackendlessDataQuery();
       query.setPageSize( 50 );
@@ -176,50 +181,16 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void handleResponse( BackendlessCollection<Session> response )
         {
-          for( final Session session : response.getCurrentPage() )
-          {
-            BasicImageButtonsCard card = new BasicImageButtonsCard( rootView.getContext() );
-            card.setTitle( session.getMovie().getTitle() );
-            card.setDescription( session.getMovie().getGenre() );
-            card.setLeftButtonText( "" );
-            card.setRightButtonText( "BUY" );
-
-            card.setOnRightButtonPressedListener( new OnButtonPressListener()
-            {
-              @Override
-              public void onButtonPressedListener( View view, Card card )
-              {
-                String url = session.getTicketsLink();
-                Intent i = new Intent( Intent.ACTION_VIEW );
-                i.setData( Uri.parse( url ) );
-                startActivity( i );
-              }
-            } );
-
-            mListView.add( card );
-          }
+          // specify an adapter (see also next example)
+          mAdapter = new SessionAdapter( rootView.getContext(), response.getCurrentPage() );
+          mRecyclerView.setAdapter( mAdapter );
+//          mAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void handleFault( BackendlessFault fault )
         {
           Toast.makeText( rootView.getContext(), fault.getMessage(), Toast.LENGTH_LONG ).show();
-        }
-      } );
-
-      mListView.addOnItemTouchListener( new RecyclerItemClickListener.OnItemClickListener()
-      {
-
-        @Override
-        public void onItemClick( CardItemView view, int position )
-        {
-//          Log.d( "CARD_TYPE", view.getTag().toString() );
-        }
-
-        @Override
-        public void onItemLongClick( CardItemView view, int position )
-        {
-//          Log.d( "LONG_CLICK", view.getTag().toString() );
         }
       } );
 
