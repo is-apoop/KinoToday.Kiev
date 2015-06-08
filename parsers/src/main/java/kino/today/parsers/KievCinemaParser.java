@@ -102,7 +102,7 @@ public class KievCinemaParser {
         Element timeElement = document.select(xPathToTime).first();
         if (timeElement != null) {
             try {
-                session.setTineStart(parseTime(timeElement.text()));
+                session.setTimeStart( parseTime( timeElement.text() ) );
             } catch (InvalidFormatException e) {
                 LOG.error(e.getMessage() + "Visit the following link for more details: " + linkToSession);
                 return null;
