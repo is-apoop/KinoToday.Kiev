@@ -41,6 +41,9 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     // - get element from your dataset at this position
     // - replace the contents of the view with that element
     holder.sessionTitle.setText( mSessions.get( position ).getMovie().getTitle() );
+    holder.cinemaAddress.setText(mSessions.get(position).getCinema().getName());
+    holder.price.setText(String.valueOf(mSessions.get(position).getPrice()) + " UAH");
+    holder.time.setText(mSessions.get(position).getTimeStart().toString());
     holder.purchaseButton.setOnClickListener( new View.OnClickListener()
     {
       @Override
@@ -64,6 +67,9 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
   public static class ViewHolder extends RecyclerView.ViewHolder
   {
     public TextView sessionTitle;
+    public TextView cinemaAddress;
+    public TextView price;
+    public TextView time;
     public Button purchaseButton;
 
     public ViewHolder( View sessionView )
@@ -71,7 +77,10 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
       super( sessionView );
 
       this.sessionTitle = (TextView) sessionView.findViewById( R.id.session_title );
-      this.purchaseButton = (Button) sessionView.findViewById( R.id.purchaseButton );
+      this.purchaseButton = (Button) sessionView.findViewById( R.id.purchase_button );
+      this.cinemaAddress = (TextView) sessionView.findViewById(R.id.cinema_address);
+      this.price = (TextView) sessionView.findViewById(R.id.price);
+      this.time = (TextView) sessionView.findViewById(R.id.time);
     }
   }
 }

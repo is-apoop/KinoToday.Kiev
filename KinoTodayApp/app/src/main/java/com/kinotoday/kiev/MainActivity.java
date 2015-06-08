@@ -18,6 +18,7 @@ import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
 import com.kinotoday.kiev.model.Session;
 
+import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity
@@ -44,11 +45,11 @@ public class MainActivity extends ActionBarActivity
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_main );
 
+    Backendless.initApp( this, "C0CAF713-73D0-475A-FFED-43E5641FDD00", "007C7D0F-28CB-EE69-FFBC-120E8EB75E00", "v1" );
+
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
     mSectionsPagerAdapter = new SectionsPagerAdapter( getSupportFragmentManager() );
-
-    Backendless.initApp( this, "C0CAF713-73D0-475A-FFED-43E5641FDD00", "007C7D0F-28CB-EE69-FFBC-120E8EB75E00", "v1" );
 
     // Set up the ViewPager with the sections adapter.
     mViewPager = (ViewPager) findViewById( R.id.pager );
@@ -90,7 +91,10 @@ public class MainActivity extends ActionBarActivity
     public SectionsPagerAdapter( FragmentManager fm )
     {
       super( fm );
+      setTitle("Sessions in Kiev cinemas");
     }
+
+
 
     @Override
     public Fragment getItem( int position )
@@ -176,6 +180,7 @@ public class MainActivity extends ActionBarActivity
       QueryOptions queryOptions = new QueryOptions();
       queryOptions.setRelationsDepth( 2 );
       query.setQueryOptions( queryOptions );
+      query.setWhereClause("timeStart>"+new Date().getTime());
       Backendless.Data.of( Session.class ).find( query, new AsyncCallback<BackendlessCollection<Session>>()
       {
         @Override
