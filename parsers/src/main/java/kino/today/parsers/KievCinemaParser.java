@@ -1,5 +1,6 @@
 package kino.today.parsers;
 
+import kino.today.MovieRegistry;
 import kino.today.model.Cinema;
 import kino.today.model.Movie;
 import kino.today.model.Session;
@@ -84,7 +85,7 @@ public class KievCinemaParser {
     //TODO probably we should wrap this exceptions with ours here
     private Session parseSession(String linkToSession) throws IOException, ParseException {
         Session session = new Session();
-        Movie movie = new Movie();
+        Movie movie;
         session.setCinema(cinema);
         session.setTicketsLink(linkToSession);
 
@@ -93,7 +94,7 @@ public class KievCinemaParser {
         Element titleElement = document.select(xPathToTitle).first();
         if (titleElement != null) {
             //TODO normalize the title of the movie and choose movie object from the list of known films
-            movie.setTitle(titleElement.text());
+            movie = MovieRegistry.INSTANCE.getMovieByTitle(titleElement.text());
         } else {
             LOG.error(this.getClass().getSimpleName() + " haven't found the title of the movie. Please check the following" +
                     "xPAth: [" + xPathToTitle + "] or visit " + linkToSession);
